@@ -53,22 +53,18 @@ def _process_credit_card_payment(payment_data):
     logger.debug(payment_data.get('expirationDate'))
 
 def update_order(order_id, is_paid):
-    """ Trigger order update once it is paid"""
-    payload = {
-        "order_id": order_id,
-        "is_paid": is_paid
-    }
-    try:
-        response = requests.put(
-            "http://api-gateway:8080/store-manager-api/orders",
-            json=payload,
-            headers={'Content-Type': 'application/json'}
-        )
-        
-        if response.ok:
-            logger.debug(f"Commande {order_id} mise à jour avec succès.")
-        else:
-            logger.error(f"Erreur lors de la mise à jour de la commande: {response.status_code}")
-            
-    except Exception as e:
-        logger.error(f"Erreur de connexion au Gateway: {e}")
+    """ Update order """
+    response_from_store_manager = requests.put(
+        'http://api-gateway:8080/store-manager-api/orders',
+        json={
+            'order_id': order_id,
+            'is_paid': is_paid,
+        },
+        headers={'Content-Type': 'application/json'}
+    )
+
+    if response_from_store_manager.ok:
+        data = response_from_store_manager.json() 
+        logger.info(data)
+    else:
+        logger.error("Erreur:", response_from_store_manager.status_code, response_from_store_manager.text)
