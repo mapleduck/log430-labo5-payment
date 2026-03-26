@@ -6,7 +6,6 @@ Auteurs : Gabriel C. Ullmann, Fabio Petrillo, 2025
 
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST")
@@ -15,3 +14,6 @@ DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
+KAFKA_HOST = os.getenv("KAFKA_HOST")
+KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
+KAFKA_GROUP_ID = os.getenv("KAFKA_GROUP_ID")
